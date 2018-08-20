@@ -2,11 +2,21 @@ var gulp = require('gulp');
 var sass = require('gulp-sass');
 var inject = require("gulp-inject");
 var webserver = require('gulp-webserver');
+var browserSync = require("browser-sync").create();
+var reload = browserSync.reload;
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        server: {
+            baseDir: "./build"
+        }
+    });
+});
 
 gulp.task('css', function () {
     return gulp.src('src/assets/sass/**/*.scss')
-            .pipe(sass())
-            .pipe(gulp.dest('build/assets/css/'));
+                .pipe(sass.sync().on('error', sass.logError))
+                .pipe(gulp.dest('build/assets/css/'));
 });
 
 gulp.task("html", function() {
@@ -14,11 +24,8 @@ gulp.task("html", function() {
                 .pipe(gulp.dest('build/'));
 });
 
-var jsFiles = 'src/assets/js/**/*.js',
-    jsDest = 'build/assets/js/';
-
 gulp.task('js', function () {
-    return gulp.src(jsFiles).pipe(gulp.dest(jsDest));
+    return gulp.src('src/assets/js/**/*.js').pipe(gulp.dest('build/assets/js/'));
 });
 
 /////////// 
@@ -34,17 +41,19 @@ gulp.task('inject', ['copy'], function () {
         .pipe(gulp.dest('build/'));
 });
 
-gulp.task('serve', ['inject'], function () {
-    return gulp
-        .src("build/")
-        .pipe(webserver({ 
-            port: 3000,
-            livereload: true
-        }));   
+
+gulp.task("serve", ["inject"], function() {
+  browserSync.init({
+    server: {
+      baseDir: "build/"
+    }
+  });
+
+
 });
 
 gulp.task('watch', ['serve'], function () {
-    gulp.watch('src/**/*', ['inject']);
+    gulp.watch("src/**/*", ["inject"]).on("change", reload);;
 });
 
 

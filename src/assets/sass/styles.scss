@@ -1,5 +1,171 @@
+$default-border-radius: 4px;
+
+
 body {
 
-    background: red;
+    margin: 0 auto;
+    font-family: Helvetica, sans-serif;
+
+    font-size: 15px;
+
+}
+
+
+.app {
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+
+    .top-bar {
+
+        grid-column-start: 1;
+        grid-column-end: 13;
+
+    }
+
+    
+    .top-bar {
+        grid-column-start: 1;
+        grid-column-end: 13;
+    }
+
+}
+
+
+
+$btn-default-bg: #2779af;
+$btn-default-hover-shadow: 0 0 6px lighten($btn-default-bg,30%);
+$btn-default-hover-border: darken($btn-default-bg,10%) solid 1px;
+
+$btn-default-active-shadow: 0 0 3px rgba(0,0,0,0.8);
+$btn-default-active-border: darken($btn-default-bg,100%) solid 1px;
+
+
+
+
+.btn {
+
+    transition: 0.2s;
+    margin: 10px;
+
+    height: 2em;
+    display: inline-flex; 
+    align-items: center;
+
+    background-color: $btn-default-bg;
+    color: #333;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border-radius: $default-border-radius;
+    border: transparent solid 1px;
+
+
+    &:hover {
+
+        box-shadow: $btn-default-hover-shadow;
+        border: $btn-default-hover-border
+
+    }
+
+
+    &:active {
+
+        box-shadow: $btn-default-active-shadow;
+        border: $btn-default-active-border;
+
+    }
+
+}
+
+
+.top-bar {
+    
+    height: 80px;
+    display: flex;
+ 
+    justify-content: space-between;
+    align-items: center;
+
+    background: #333;
+    color: #fff;
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    &__left {
+        
+        width: 50%
+
+    }
+
+    &__right {
+
+        width: 50%;
+        text-align: right;
+
+    }
+
+    
+}
+
+.menu-toggler {
+
+    transition: 0.2s;
+    display: inline-flex; 
+    align-items: center;
+
+    &__hamb {
+
+        transition: 0.2s;
+        background-color: rgba(255,255,255,0.07);
+        padding: 10px;
+        border-radius: $default-border-radius;
+        border: transparent solid 1px;
+
+        div {
+
+            width: 30px;
+            height: 4px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            margin-bottom: 6px;
+            &:nth-child(3) {
+                margin-bottom: 0px;
+            } 
+
+        }
+
+    }
+
+    &__text {
+        
+        transition: 0.2s;
+        display: none;
+        opacity: 0;
+        font-size: 11px;
+        padding-top: 1px;
+        margin-left: 10px;
+
+    }
+
+    &:hover & {
+        
+        &__hamb {
+
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            border: #ccc solid 1px;
+
+        }
+
+        &__text { 
+            
+            display: inline-block;
+            opacity: 1;
+
+        }
+        
+    }
 
 }
