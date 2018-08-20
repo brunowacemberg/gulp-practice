@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var inject = require("gulp-inject");
-var webserver = require('gulp-webserver');
 var browserSync = require("browser-sync").create();
 var reload = browserSync.reload;
 
@@ -48,8 +47,6 @@ gulp.task("serve", ["inject"], function() {
       baseDir: "build/"
     }
   });
-
-
 });
 
 gulp.task('watch', ['serve'], function () {
